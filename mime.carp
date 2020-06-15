@@ -1,0 +1,13 @@
+(relative-include "mime.h")
+
+(defmodule Mime
+  (hidden get-mime-c)
+  (private get-mime-c)
+  (register get-mime-c (Fn [(Ptr CChar) Int] (Ptr CChar)) "Mime__getmime")
+
+  (defn get-mime [s]
+    (let [mime (get-mime-c (cstr s) (String.length s))]
+      (if (null? mime)
+        (Maybe.Nothing)
+        (Maybe.Just (from-cstr mime))))))
+

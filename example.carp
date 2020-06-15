@@ -1,0 +1,13 @@
+(Debug.sanitize-addresses)
+(load "mime.carp")
+
+(defn print-mime [ext]
+  (println* (match (Mime.get-mime ext)
+              (Maybe.Just mime) mime
+              Maybe.Nothing @"Can't find it")))
+
+(defn-do main []
+  (print-mime "js")
+  (print-mime "html")
+  (print-mime "noexist"))
+
